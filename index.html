@@ -7,24 +7,20 @@
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root {
-  --green-deep: #0f5132;
-  --green-mid: #198754;
-  --green-light: #39d98a;
-  --green-glow: #58ffb3;
-
-  --gold: #d4af37;
-  --gold-light: #ffd76a;
-  --gold-pale: #fff0b3;
-
-  --bg-dark: #030303;
-  --bg-mid: #0a0a0a;
-
-  --text-light: #f8f8f8;
-  --text-muted: #9ca3af;
-
-  --glass: rgba(255,255,255,0.05);
-  --glass-border: rgba(255,255,255,0.08);
-      }
+    --green-deep: #1a4a2e;
+    --green-mid: #2d7a4f;
+    --green-light: #4CAF50;
+    --green-glow: #5cb85c;
+    --gold: #c9a227;
+    --gold-light: #e8c547;
+    --gold-pale: #f5e199;
+    --bg-dark: #0d1f15;
+    --bg-mid: #122b1c;
+    --text-light: #f0f7f0;
+    --text-muted: #8ab89a;
+    --glass: rgba(45, 122, 79, 0.12);
+    --glass-border: rgba(201, 162, 39, 0.25);
+  }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -46,21 +42,14 @@
   }
 
   .bg-canvas::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at 20% 20%, rgba(57,217,138,0.18), transparent 30%),
-    radial-gradient(circle at 80% 30%, rgba(255,215,106,0.12), transparent 25%),
-    radial-gradient(circle at 50% 80%, rgba(88,255,179,0.08), transparent 30%),
-    linear-gradient(
-      180deg,
-      #020202 0%,
-      #050505 30%,
-      #0b0f0d 60%,
-      #020202 100%
-    );
-        }
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 20%, rgba(45,122,79,0.35) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 80% 80%, rgba(201,162,39,0.15) 0%, transparent 60%),
+      radial-gradient(ellipse 100% 100% at 50% 50%, #0d1f15 0%, #060e09 100%);
+  }
 
   .grid-lines {
     position: absolute;
@@ -179,65 +168,94 @@
     font-size: 28px;
   }
 
-  .site-title {
-  font-family: 'Amiri', serif;
-  font-size: clamp(52px, 9vw, 90px);
-  font-weight: 700;
-
-  background:
-    linear-gradient(
+   .site-title {
+    font-family: 'Amiri', serif;
+    font-size: clamp(52px, 10vw, 88px);
+    font-weight: 700;
+    background: linear-gradient(
       135deg,
-      #fff6d5 0%,
-      #ffd76a 30%,
-      #d4af37 55%,
-      #58ffb3 100%
+      #fff8dc 0%, #ffd700 15%, #ffb300 30%,
+      #fff176 45%, #ffd700 55%, #e6a800 70%,
+      #ffd700 82%, #fff8dc 100%
     );
-
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     background-clip: text;
-
-  line-height: 1;
-  position: relative;
-  display: inline-block;
-
-  letter-spacing: 4px;
-
-  text-shadow:
-    0 0 20px rgba(255,215,106,0.15),
-    0 0 40px rgba(57,217,138,0.08);
-
-  animation: glowPulse 4s ease-in-out infinite;
-   }
- @keyframes glowPulse {
-  0%,100% {
-    filter: brightness(1);
+    line-height: 1;
+    position: relative;
+    display: inline-block;
+    opacity: 0;
+    animation: titleReveal 1.2s ease forwards 0.5s,
+               goldShimmer 3s ease-in-out infinite 1.8s;
+    letter-spacing: 6px;
+    filter: drop-shadow(0 0 18px rgba(255,215,0,0.55))
+            drop-shadow(0 0 35px rgba(255,179,0,0.3));
   }
-  50% {
-    filter: brightness(1.15);
-  }
-   }
+
   @keyframes titleReveal {
-    from { opacity: 0; letter-spacing: 20px; }
-    to { opacity: 1; letter-spacing: 4px; }
+    from { opacity: 0; letter-spacing: 28px; }
+    to   { opacity: 1; letter-spacing: 6px; }
+  }
+
+  @keyframes goldShimmer {
+    0%   { background-position: 0% 50%;   filter: drop-shadow(0 0 18px rgba(255,215,0,0.55)); }
+    25%  { background-position: 100% 50%; filter: drop-shadow(0 0 30px rgba(255,215,0,0.9)); }
+    50%  { background-position: 50% 0%;   filter: drop-shadow(0 0 14px rgba(255,200,0,0.4)); }
+    75%  { background-position: 0% 100%;  filter: drop-shadow(0 0 35px rgba(255,230,0,0.95)); }
+    100% { background-position: 0% 50%;   filter: drop-shadow(0 0 18px rgba(255,215,0,0.55)); }
+  }
+
+  .site-title::before {
+    content: '✦';
+    position: absolute;
+    top: 50%; right: calc(100% + 8px);
+    transform: translateY(-50%);
+    font-size: 0.32em;
+    -webkit-text-fill-color: #ffd700;
+    color: #ffd700;
+    opacity: 0;
+    animation: ornamentFade 1s ease forwards 1.8s,
+               ornamentPulse 2.5s ease-in-out infinite 2.8s;
+    filter: drop-shadow(0 0 8px rgba(255,215,0,0.9));
   }
 
   .site-title::after {
-    content: '';
+    content: '✦';
     position: absolute;
-    bottom: -4px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--gold), transparent);
-    animation: lineExpand 1s ease forwards;
-    animation-delay: 1.2s;
+    top: 50%; left: calc(100% + 8px);
+    transform: translateY(-50%);
+    width: auto; height: auto; background: none;
+    font-size: 0.32em;
+    -webkit-text-fill-color: #ffd700;
+    color: #ffd700;
+    opacity: 0;
+    animation: ornamentFade 1s ease forwards 2s,
+               ornamentPulse 2.5s ease-in-out infinite 3s;
+    filter: drop-shadow(0 0 8px rgba(255,215,0,0.9));
   }
-  @keyframes lineExpand {
+
+  @keyframes ornamentFade {
+    from { opacity: 0; transform: translateY(-50%) scale(0.3); }
+    to   { opacity: 1; transform: translateY(-50%) scale(1); }
+  }
+  @keyframes ornamentPulse {
+    0%,100% { transform: translateY(-50%) scale(1);   opacity: 0.8; }
+    50%      { transform: translateY(-50%) scale(1.5); opacity: 1; }
+  }
+    @keyframes lineExpand {
     to { width: 80%; }
   }
 
+  .title-underline {
+    display: block;
+    width: 0;
+    height: 2px;
+    margin: 6px auto 0;
+    background: linear-gradient(90deg, transparent, #ffd700, #fff176, #ffd700, transparent);
+    animation: lineExpand 1s ease forwards 1.4s;
+    box-shadow: 0 0 8px rgba(255,215,0,0.5);
+   }
   .tagline {
     font-size: 14px;
     color: var(--gold-pale);
@@ -291,10 +309,9 @@
     overflow: hidden;
     backdrop-filter: blur(20px);
     box-shadow:
-      0 0 0 1px rgba(255,255,255,0.04),
-      0 0 40px rgba(57,217,138,0.08),
-      0 0 80px rgba(255,215,106,0.05),
-      0 25px 80px rgba(0,0,0,0.7);
+      0 0 0 1px rgba(201,162,39,0.1),
+      0 20px 60px rgba(0,0,0,0.4),
+      inset 0 1px 0 rgba(255,255,255,0.05);
     animation: containerRise 1s ease forwards;
     opacity: 0;
     animation-delay: 1.6s;
@@ -328,25 +345,7 @@
   .chat-header-text { flex: 1; }
   .chat-header-title { font-size: 14px; font-weight: 600; color: var(--gold-light); }
   .chat-header-sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
-   .jordan-bg {
-     position: fixed;
-     inset: 0;
-     z-index: -2;
-     opacity: 0.18;
 
-    background:
-     linear-gradient(
-      to bottom,
-      black 0%,
-      black 33%,
-      white 33%,
-      white 66%,
-      #007a3d 66%,
-      #007a3d 100% );
-    clip-path: polygon(
-     0 0,
-     30% 50%,
-     0 100%,); }
   .messages {
     flex: 1;
     min-height: 380px;
@@ -438,17 +437,23 @@
     position: relative;
   }
   .msg.user .msg-bubble {
-    background: linear-gradient(135deg, var(--green-mid), var(--green-deep));
-    border: 1px solid rgba(76,175,80,0.3);
-    border-top-left-radius: 4px;
-    text-align: right;
-  }
+  background: linear-gradient(135deg, #1a6b8a, #0d4a63);
+  border: 1px solid rgba(64, 180, 220, 0.45);
+  border-top-left-radius: 4px;
+  text-align: right;
+  box-shadow: 0 4px 15px rgba(26, 107, 138, 0.35);
+}
   .msg.bot .msg-bubble {
-    background: rgba(201,162,39,0.08);
-    border: 1px solid rgba(201,162,39,0.2);
-    border-top-right-radius: 4px;
-    color: var(--text-light);
-  }
+  background: rgba(201,162,39,0.18);
+  border: 1px solid rgba(201,162,39,0.45);
+  border-top-right-radius: 4px;
+  color: var(--text-light);
+  box-shadow: 0 4px 15px rgba(201,162,39,0.12);
+}
+ .msg.user .msg-avatar {
+  background: linear-gradient(135deg, #1a6b8a, #0d4a63);
+  border-color: rgba(64, 180, 220, 0.7);
+}
 
   /* Typing indicator */
   .typing-indicator {
@@ -532,23 +537,7 @@
     opacity: 0.5;
     cursor: not-allowed;
     transform: none;
-   }
-  .jordan-flag {
-     font-size: 70px;
-     filter:
-      drop-shadow(0 0 15px rgba(255,255,255,0.15))
-      drop-shadow(0 0 30px rgba(255,0,0,0.2));
-     animation: flagFloat 3s ease-in-out infinite;
-         }
-     
-   @keyframes flagFloat {
-  0%,100% {
-    transform: translateY(0px);
   }
-  50% {
-    transform: translateY(-8px);
-  }
-     }
 
   /* ===== FOOTER ===== */
   footer {
@@ -600,10 +589,6 @@
 </head>
 <body>
 
-
-<div class="jordan-bg"></div>
-
-
 <!-- Background -->
 <div class="bg-canvas">
   <div class="grid-lines"></div>
@@ -638,10 +623,29 @@
         </defs>
         <animateTransform attributeName="transform" type="rotate" from="0 45 45" to="360 45 45" dur="20s" repeatCount="indefinite"/>
       </svg>
-      <div class="logo-inner">🔊</div>
+       <div class="logo-inner">
+        <svg width="38" height="38" viewBox="0 0 38 38" fill="none">
+        <circle cx="19" cy="19" r="4" fill="#ffd700"/>
+        <path d="M13 13.5 Q9 19 13 24.5" stroke="#ffd700" stroke-width="2.2" stroke-linecap="round" fill="none">
+        <animate attributeName="opacity" values="1;0.2;1" dur="1.8s" repeatCount="indefinite"/>
+       </path>
+       <path d="M25 13.5 Q29 19 25 24.5" stroke="#ffd700" stroke-width="2.2" stroke-linecap="round" fill="none">
+       <animate attributeName="opacity" values="1;0.2;1" dur="1.8s" repeatCount="indefinite"/>
+       </path>
+      <path d="M9 9 Q3 19 9 29" stroke="#e8c547" stroke-width="1.6" stroke-linecap="round" fill="none" opacity="0.6">
+      <animate attributeName="opacity" values="0.6;0.1;0.6" dur="1.8s" begin="0.4s" repeatCount="indefinite"/>
+      </path>
+     <path d="M29 9 Q35 19 29 29" stroke="#e8c547" stroke-width="1.6" stroke-linecap="round" fill="none" opacity="0.6">
+      <animate attributeName="opacity" values="0.6;0.1;0.6" dur="1.8s" begin="0.4s" repeatCount="indefinite"/>
+     </path>
+     </svg>
+    </div>
+
+
     </div>
 
     <div class="site-title">صـدى</div>
+    <span class="title-underline"></span>
     <div class="tagline">صوتك يصل ... ونحدث فرقاً</div>
 
     <div class="sectors">
@@ -660,18 +664,18 @@
     <div class="chat-header">
       <div class="status-dot"></div>
       <div class="chat-header-text">
-        <div class="chat-header-title">مساعد صدى الذكي</div>
-        <div class="chat-header-sub">متصل · يعالج شكاوي المواطنين</div>
+        <div class="chat-header-title">  صدى </div>
+        <div class="chat-header-sub">متصل .نسمعك و نوصل صوتك</div>
       </div>
       <span style="font-size:20px">🤖</span>
     </div>
 
     <div class="messages" id="messages">
       <div class="welcome-msg" id="welcomeMsg">
-        <div class="welcome-icon jordan-flag">🇯🇴</div>
+        <div class="welcome-icon">🇯🇴</div>
         <div class="welcome-title">أهلاً بك في منصة صدى</div>
         <div class="welcome-text">
-          منصة ذكاء اصطناعي لتحليل شكاوي المواطنين الأردنيين<br>
+          منصة ذكاء اصطناعي لتحليل شكاوي المواطنين الأردنيين عبر منصات التواصل الاجتماعي<br>
           اسألني عن أي قطاع خدمي أو استفسر عن أكثر الشكاوي شيوعاً
         </div>
         <div class="quick-questions">
@@ -688,7 +692,7 @@
       <div class="input-wrapper">
         <textarea
           id="inputEl"
-          placeholder="اكتب سؤالك هنا... مثال: ما هي أكثر الشكاوي في عمان؟"
+          placeholder="اكتب سؤالك هنا... مثال: ما هي أكثر الشكاوي انتشاراً"
           rows="1"
           onkeydown="handleKey(event)"
           oninput="autoResize(this)"
@@ -700,7 +704,7 @@
     </div>
   </div>
 
-  <footer>منصة صدى © 2026 — نظام تحليل شكاوي المواطنين بالذكاء الاصطناعي</footer>
+  <footer>منصة صدى © 2026 — نظام تحليل شكاوي المواطنين بالذكاء الاصطناعي عبر منصات التواصل الاجتماعي</footer>
 </div>
 
 <script>
